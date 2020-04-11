@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=
+	"http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- <bean class="controller.RegisterController"/> -->
+	<bean id="memberController" class="member.controller.MemberController">
+	    <property name="memberService" ref="memberServiceImpl"/>	      
+	</bean>
+	
+	<bean id ="loginController" class = "member.controller.LoginController">
+		<property name="authService" ref = "authService"></property>			 
+	</bean>
+	
+	<bean id ="NoticeController" class = "board.notice.controller.NoticeController">
+		<property name="NoticeService" ref = "NoticeServiceImpl"></property>			 
+	</bean>	
+	
+	<bean id ="AdoptController" class = "board.adopt.controller.AdoptController">
+		<property name="AdoptService" ref = "AdoptServiceImpl"></property>			 
+	</bean>
+	
+	<bean id ="QuestController" class = "board.quest.controller.QuestController">
+		<property name="QuestService" ref = "QuestServiceImpl"></property>			 
+	</bean>
+	
+	<bean id ="ServiceController" class = "board.service.controller.ServiceController">
+		<property name="ServiceService" ref = "ServiceServiceImpl"></property>			 
+	</bean>
+	
+	<bean id ="FreeController" class = "board.free.controller.FreeController">
+		<property name="FreeService" ref = "FreeServiceImpl"></property>
+		<property name="FreeReplyService" ref = "FreeReplyServiceImpl"></property>			 
+	</bean>	
+	
+	<bean id ="BuyerController" class = "board.buyer.controller.BuyerController">
+		<property name="BuyerService" ref = "BuyerServiceImpl"></property>			 
+	</bean>
+	
+	<bean id ="MessageController" class = "message.controller.MessageController">
+		<property name="MessageService" ref = "MessageServiceImpl"></property>			 
+	</bean>	
+	
+	<bean id="boardController" class="board.parcelOut.controller.boardController">
+		<property name="boardService" ref="boardServiceImpl"/>
+		<property name="memberService" ref="memberServiceImpl"/>
+	</bean> 
+	
+	<bean id ="ReviewBoardController" class = "board.review.controller.ReviewBoardController">
+		<property name="ReviewBoardService" ref = "ReviewBoardServiceImpl"></property>			 
+	</bean>	
+	
+	<bean id ="HomeController" class = "board.review.controller.HomeController">			 
+	</bean>
+	
+	
+	<bean id ="ReviewController" class = "board.review.controller.ReviewController">
+		<property name="ReviewService" ref = "ReviewServiceImpl"></property>
+		<property name="uploadPath" ref="uploadPath"></property>
+	</bean>		
+
+	<bean id="MemberReport" class="report.reportController.reportController">
+		<property name="ReportService" ref = "ReportServiceImpl"></property>			 
+	</bean>
+	
+	
+</beans>

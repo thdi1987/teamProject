@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="freeReplyMapper">
+
+<!-- 댓글 조회 -->
+	<select id="readReply" resultType="FreeReplyVO">
+    	SELECT
+    		  FRNUMBER, FRCONTENT, FRNICK, FRREGDATE
+    	 FROM FREE_REPLY
+    	WHERE FBNUMBER = #{fbnumber}
+	</select>
+	
+<!-- 댓글 작성 -->
+	<insert id="writeReply">
+	INSERT INTO FREE_REPLY(
+							FBNUMBER
+						  , FRNUMBER
+						  , FRNICK
+						  , FRCONTENT
+						  			)
+				 VALUES(    #{fbnumber}
+				 		  , FREE_REPLY_SEQ.NEXTVAL
+				 		  , #{frnick}
+				 		  , #{frcontent}  )
+	</insert>
+	
+<!-- 댓글 수정 -->
+	<update id="updateReply" parameterType="FreeReplyVO">
+		UPDATE FREE_REPLY SET FRCONTENT = #{frcontent}
+		WHERE FRNUMBER = #{frnumber}
+	</update>
+
+<!-- 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="FreeReplyVO">
+		DELETE FROM FREE_REPLY
+		WHERE FRNUMBER = #{frnumber}
+	</delete>
+	
+<!-- 선택된 댓글 조회 -->
+	<select id="selectReply" resultType="FreeReplyVO">
+		SELECT
+				FBNUMBER
+			  , FRNUMBER
+			  , FRNICK
+			  , FRCONTENT
+			  , FRREGDATE
+		  FROM FREE_REPLY
+		 WHERE FRNUMBER = #{frnumber}
+	</select>
+</mapper>

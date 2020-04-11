@@ -1,0 +1,77 @@
+@charset "utf-8";
+
+html{ font-size:20px;}
+body{ font-size:1rem;}
+
+/*테이블 */
+
+/* 스킵 네비게이션 */
+#skip{position: relative;}
+#skip a {position: absolute; left: 0px; top: -40px; border: 1px solid #fff; color: #fff; background: #333;
+line-height: 30px; width: 200px; text-align: center}
+#skip a:active,
+#skip a:focus {top: 0;}
+
+
+/* 레이아웃 */
+#qwarp{width: 100%; overflow: hidden;}
+#qheader{ position: fixed; width: 100%; height: 100px; background-color: rgba( 255, 255, 255, 0.4 ); z-index: 100; border-bottom: 1px solid black; border-top: 1px solid black; overflow: hidden;}
+#qheader_sub{width: 100%; height: 100px; background:white; border-bottom: 1px solid black; border-top: 1px solid black;  display: line-block; overflow: hidden;}
+#qbanner{width: 100%; height: 900px; background: white; border-bottom: 1px solid black; overflow: hidden;}
+#qcontents{width: 100%; height: 1300px; background: white; overflow: hidden;}
+#qfooter{width: 100%; height: 100px; background: white; border-top: 1px solid black; overflow: hidden;}
+
+/* 풋터 컨테이너 */
+
+.qcon_f{width: 2000px; margin: 0 auto; height: inherit; background: rgba(255,255,255,0.5)}
+
+/* 헤더 */
+.qmenu { position: relative; width: 100%;  margin: 0 auto; height: inherit; background-color: rgba( 255, 255, 255, 0.4 );}
+.qmenu:after {content:""; display: block; clear: both;}
+.qmenu h1 {float:left; padding:0.5rem 0 0 2rem; line-height:100%;}
+.qmenu .qmain-menu {float:right; padding:1.7rem 0 0 0;}
+.qmenu .qmain-menu ul li {float:left; list-style: none; position: relative;}
+.qmenu .qmain-menu ul li a { display: block; font-size:1rem; color:black; padding: 0rem 2rem 0rem; line-height: 100%;}
+
+
+/* 슬라이드 쇼 */
+.qban { background: white; height: 45rem; width: 100%; overflow: hidden; position:relative;}
+.qban_slides {position: absolute; width: 100%; height: 100%;}
+.qban_slides a{position: absolute; width: 100%; height: 100%; text-align: center;}
+.qban_nav a{width: 71px; height: 71px; position: absolute; left: 50%; top: 50%; transform: translateY(-50%); background:url(../img/sprites.png) no-repeat; text-indent: -9999rem}
+.qban_nav a.disabled{display: none;}
+.qban_nav a.prev{background-position: 0 -20px; margin-left: -880px;}
+.qban_nav a.next{background-position: -81px -20px; margin-left: 809px;}
+
+.qindicator {position: absolute; bottom: 30px; left:0; right: 0; display: flex; justify-content: center;}
+.qindicator a{ width: 8px; height: 8px; margin: 0 10px; background: url(../img/sprites.png) no-repeat -114px -4px; text-indent: -999rem;}
+.qindicator a.active{background-position: -134px -4px}
+
+/* 컨텐츠 */
+.qcont { width: 1600px; margin: 0 auto; height: inherit; background: white; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid white; border-bottom: 1px solid white } /*레이아웃*/
+.qcont .qcon { overflow: hidden; }
+
+/* 공지사항 */
+.qcont .qcon .qcont_col1{position: absolute; margin: 1.5rem 0 1.5rem 2rem; float: left; width: 550px; height: 600px; background: #ccc}
+
+/*메인 로그인 부분*/
+.qcont .qcon .qcont_col2{position: absolute; margin: 1.5rem 0 1.5rem 58rem; float: right; width: 420px; height: 300px; background: white; border: 1px solid black;}
+.qcont .qcon .qcont_col2 .qlog .qa{ float: left; margin: 2.5rem 0 0 1.75rem;}
+.qcont .qcon .qcont_col2 .qsubmenu {margin:  10rem 0 0 0; border-top: 1px solid black; display: flex; justify-content: center;}
+.qcont .qcon .qcont_col2 .qsubmenu .qsbm{position: relative;  float: left;  margin: 2rem 0.7rem 0; line-height: 100%; padding:0 0.5rem; font-size: 15px;} 
+.qcont .qcon .qcont_col2 .qsubmenu .qsbm ~ .qsbm:after { content: ""; position: absolute; left: -10px; top: -20px; right: 20px; height:60px; width: 1px; background: #111; transform: rotate(0deg);}
+.qcont .qcon .qcont_col2 .qlog {border:1px solid black; margin: 1rem 0 0 4rem; border-radius: 1.3rem; background:#ccc; width: 13rem; height: 8rem;}
+.qcont .qcon .qcont_col2 .qlog .qlp {font-size:1.5rem; margin: 1.2rem 0 0 1.7rem;}
+.qcont .qcon .qcont_col2 .qlogmenu {margin:  1.7rem 0 0 0; border-top: 1px solid black; display: flex; justify-content: center;}
+.qcont .qcon .qcont_col2 .qlogmenu .qlpa {float: center;  margin: 1.5rem 0.7rem 0; line-height: 100%; padding:0 0.5rem; font-size: 1rem;}
+
+/* 자유게시판 */
+.qcont .qcon .qcont_col3{position: absolute; margin: 1.5rem 0 1.5rem 30rem ; float: left; width: 550px; height: 600px; background: #ccc}
+
+/*분양 게시판*/
+.qcont .qcon .qcont_col4{position: absolute; margin: 32rem 0 1.5rem 2rem ; float: left; width: 550px; height: 600px; background: #ccc}
+
+/*후기 게시판*/
+.qcont .qcon .qcont_col5{position: absolute; margin: 32rem 0 1.5rem 30rem ; float: left; width: 550px; height: 600px; background: #ccc}
+
+

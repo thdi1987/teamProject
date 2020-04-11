@@ -1,0 +1,127 @@
+@charset "utf-8";
+
+html{ font-size:20px;}
+body{ font-size:1rem;}
+
+/*테이블 */
+/* .table {margin: 1rem 0 0 0 ; width: 95%; height:600px; border: 1px solid black; border-collapse: collapse; border-top: 3px solid #168; border-bottom: 3px solid #168;}
+.table th {color: #168; background: #f0f6f9; text-align: center; font-size: 1.5rem; border-bottom: 3px solid #168;}
+.table td { padding: 10px; border-bottom: 2px solid black; font-size:1.5rem;}
+.table tr {text-align: center;} */
+
+/* 스킵 네비게이션 */
+#skip{position: relative;}
+#skip a {position: absolute; left: 0px; top: -40px; border: 1px solid #fff; color: #fff; background: #333;
+line-height: 30px; width: 200px; text-align: center}
+#skip a:active,
+#skip a:focus {top: 0;}
+
+
+/* 레이아웃 */
+#warp{width: 100%; overflow: hidden;}
+
+/*공지사항*/
+#subheader{width: 100%; height: 100px; background:white; border-bottom: 1px solid black; border-top: 1px solid black;  display: line-block; overflow: hidden;}
+
+/*회원가입*/
+#staheader{width: 100%; height: 100px; background:white; border-bottom: 1px solid black; border-top: 1px solid black;  display: line-block; overflow: hidden;}
+
+#banner{width: 100%; height: 900px; background: white; border-bottom: 1px solid black; overflow: hidden;}
+#contents{width: 100%; height: 1300px; background: #f7f7f7; overflow: hidden;}
+#footer{width: 100%; height: 100px; background: white; border-top: 1px solid black; overflow: hidden;}
+/* 풋터 컨테이너 */
+.con_f{width: 2000px; margin: 0 auto; height: inherit; background: rgba(255,255,255,0.5)}
+
+
+/* 로그인 페이지 컨텐츠 */
+#contents_log{width:100%; height: 50rem; }
+.cont_log { width: 600px; position: absolute; left: 50%; top: 50%;  transform: translate(-50%, -50%); text-align: center;}
+.cont_log h2 { padding:0 0 20px; border-bottom: 2px solid #111; text-align: center; line-height:1; font-size: 32px; color: #111;}
+.cont_log ul { padding: 40px 20px; }
+.cont_log ul li { padding:12px 0 12px; text-align: left; list-style: none;}
+.cont_log ul li input { width: 100%; height: 50px; box-sizing: border-box; text-indent: 20px;}
+.cont_log ul li input::-webkit-input-placeholder { font-size:16px; color:#9fa19f;}
+.cont_log button { width: 100%; height: 56px; background:#8000ff; font-size: 18px; color:#fff;}
+.cont_log div { padding: 0 0 50px; border-top: 2px solid #111;}
+.cont_log div ul { display: flex; justify-content: center;}
+.cont_log div ul li { position: relative; padding: 0 1.2rem;}
+.cont_log div ul li ~ li:after { content: ""; position: absolute; left: 0; top: 9px; height:20px; width: 1px; background: #111; transform: rotate(25deg);}
+.cont_log div ul li a { font-size: 14px; color:#666; border-bottom: 1px solid #666;}
+
+/* 공지사항 메뉴*/
+.submenu { position: relative; width: 100%;  margin: 0 auto; height: inherit; background-color: rgba( 255, 255, 255, 0.4 );}
+.submenu:after {content:""; display: block; clear: both;}
+.submenu .logo {float:left; padding:1rem 0 0 5rem; margin: 0 auto;}
+.submenu .submain-menu {float:right; padding:1.7rem 0 0 0;}
+.submenu .submain-menu .su .sub {float:left; list-style: none; position: relative;}
+.submenu .submain-menu .su .sub a { display: block; font-size:1rem; color:black; padding: rem 0.5rem 0rem; height: 0.5rem;
+line-height: 100% ; margin: 2rem 5rem 0 0;}
+
+/* 회원가입 메뉴 */
+.stamenu {position: relative; width: 100%;  margin: 0 auto; height: inherit; background-color: rgba( 255, 255, 255, 0.4 ); }
+.stamenu:after {content:""; display: block; clear: both;}
+.stamenu .stalogo {float:left; padding:0.5rem 0 0 4rem; margin: 0 auto;}
+.stamenu .stamain-menu {float:right; padding:0rem 0 0 0;}
+.stamenu .stamain-menu .sta .stab {float:left; list-style: none; position: relative;}
+.stamenu .stamain-menu .sta .stab a { display: block; font-size:1rem; color:black; padding: 0rem 0.5rem 0rem; height: 0.5rem;
+line-height: 100% ; margin: 1.7rem 2rem 0 0;}
+
+
+
+/* 공지사항 */
+#container{margin:0 auto; width:100%; height: 700px; background: whtie;  border-left: 1px solid black; border-right: 1px solid black;}
+.container .Notice {margin:1rem 0 0 0 ; width:100%; height: 100px; background: #E6E6E6; border: 1px solid black;} 
+.container .Notice h1{text-align: center; font-color:black; padding: 1rem 0 2rem 0; }
+
+/* 이용약관 */
+#Trim {width: 100%; height: 100%; background: #f7f7f7; overflow: hidden; margin:0 auto;}
+.Trimer h1 { text-align: center; width: 700px; height:100px; background: #f7f7f7; margin: 0 auto; padding: 2rem 0 0 0; font-size:1rem;}
+.joinForm{width: 500px;margin: 0 auto;}
+ul.join_box{border: 1px solid #ddd;background-color: #fff;}
+.checkBox,.checkBox>ul{position: relative; list-style: none;}
+.checkBox>ul>li{float: left; list-style: none; }
+.checkBox>ul>li:first-child{width: 85%;padding: 15px;font-weight: 600;color: #888;}
+.checkBox>ul>li:nth-child(2){position: absolute;top: 20%;right: 30px;margin-top: 0px;}
+.checkBox textarea{width: 96%;height: 90px; margin: 0 2%;background-color: #f7f7f7;color: #888; border: none; list-style: none; font-size:1rem;}
+.footBtwrap{margin-top: 15px; list-style: none;}
+.footBtwrap>li{float: left;width: 50%;height: 60px; list-style: none; list-style: none; }
+.footBtwrap>li>button{display: block; width: 100%;height: 100%; font-size: 20px;text-align: center;line-height: 60px; list-style: none;}
+.fpmgBt1{background-color: #fff;color:#888; padding: 0 0 1rem 0;}
+.fpmgBt2{background-color: lightsalmon;color: #fff; padding: 0 0 1rem 0;}
+
+/* 회원가입 회원분류 선택창*/
+#memberTrim{width: 100%; height: 800px; background: #f7f7f7; overflow: hidden; margin:0 auto;}
+.MTR{margin: 0 auto; width:1200px; height: 800px; background: #f7f7f7; border-left: 1px solid black; border-right: 1px solid black;}
+.MTR h1{width: 700px; height:100px; background: #f7f7f7; margin: 0 auto; padding: 3rem 0 0 0; text-align: center;}
+.MTR .MTRA {margin: 4rem 0 0 5rem; width: 1000px; height: 400px; background:#f7f7f7; padding: 3rem 0 0 2.5rem; border:1px solid black; border-radius: 1.3rem; }
+.MTR .Nomal {font-size: 5.5rem ; background-color:#808080; color:#fff; padding: 2rem 0 2rem 0; border-radius: 1.3rem; margin: 0 auto;}
+.MTR .Sell {font-size: 5.5rem ; background-color:#808080; color:#fff; padding: 2rem 0 2rem 0; border-radius: 1.3rem; margin: 0 auto;}
+
+/* 일반회원 회원가입 */
+#Nomal{width: 100%; height: 1200px; background:#f7f7f7; overflow:hidden; margin: 0 auto;}
+.NoTS{width: 1200px; height:1100px; background:#f7f7f7; border-left:1px solid black; border-right:1px solid black; margin: 0 auto;}
+.NoTS h1{width: 800px; height:100px; background:#f7f7f7; margin: 0 auto; text-alian: center; padding: 1rem 0 0 15rem;}
+.NoTS .Form {width: 900px; height: 750px; background: white; margin: 1rem auto; text-alian: center; padding: 2rem 0 2rem 0; border-radius: 1.3rem; border: 1px solid black;}
+.NoTS .Form tbody {float:left; width: 900px;}
+th,td {padding-left:20px; text-align:left; background-repeat:no-repeat; background-position:left; border-bottom:#eeeeee solid 1px; height: 3rem;}
+.signUp{margin: 0 0 0 20rem; width: 7rem; height:2rem; border-radius: 1rem; background: #c28af4;}
+.return{margin: 0 0 0 3rem; width: 7rem; height:2rem; border-radius: 1rem; background: #c28af4; }
+
+/* 이메일 인증 */
+#e {width: 100%; height: 800px; background:#f7f7f7; overflow:hidden; margin: 0 auto;}
+.eI {width: 1200px; height:800px; background:#f7f7f7; border-left:1px solid black; border-right:1px solid black; margin: 0 auto;}
+.eI h1{width: 500px; height:100px; background:#f7f7f7; margin: 0 auto; text-alian: center; padding: 1rem 0 0 18rem;}
+.eI .Form {width: 500px; height: 300px; background: white; margin: 2rem auto; text-alian: center; padding: 2rem 0 2rem 0; border-radius: 1.3rem; border: 1px solid black;}
+.eI .Form tbody { width: 500px; float:left; margin: 0rem; padding: 1rem 0 0 2rem; }
+.sss{padding-left:5rem; width: 2rem ; text-align:center; background-repeat:no-repeat; background-position:left; border-bottom:#eeeeee solid 1px; height: 4rem; margin: 0 0 0 2rem;}
+.ssss{padding-left:5rem; width: 2rem ; text-align:center; background-repeat:no-repeat; background-position:left; border-bottom:#eeeeee solid 1px; height: 4rem; margin: 0 0 0 2rem;}
+.click{margin: 0 0 0 100rem; width: 7rem; height: 2rem; border-radius: 1rem; background: #c28af4;  }
+
+#ee {width: 100%; height: 800px; background:#EEEEEE; overflow:hidden; margin: 0 auto; }
+.eeI {width: 800px; height:800px; background:#EEEEEE; border-left:1px solid black; border-right:1px solid black; margin: 0 auto;}
+.eeI h1{width: 300px; height:100px; background:#EEEEEE; margin: 0 auto; text-alian: center; padding: 1rem 0 0 7rem;}
+.eeI .Form {width: 500px; height: 300px; background: #EEEEEE; margin: 2rem auto; text-alian: center; padding: 2rem 0 2rem 0; border-radius: 1.3rem; border: 1px solid black;}
+.eeI .Form tbody { width: 500px; float:left; margin: 0rem; padding: 1rem 0 0 2rem; }
+.esss{padding-left:5rem; width: 2rem ; text-align:center; background-repeat:no-repeat; background-position:left; border-bottom:#eeeeee solid 1px; height: 4rem; margin: 0 0 0 2rem;}
+.essss{padding-left:5rem; width: 2rem ; text-align:center; background-repeat:no-repeat; background-position:left; border-bottom:#eeeeee solid 1px; height: 4rem; margin: 0 0 0 2rem;}
+.eclick{margin: 0 0 0 100rem; width: 7rem; height: 2rem; border-radius: 1rem; background: #c28af4;  }

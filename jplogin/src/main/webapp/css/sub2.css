@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+html{ font-size:20px;}
+body{ font-size:1rem;}
+
+/*테이블 */
+/* .table {margin: 1rem 0 0 0 ; width: 95%; height:600px; border: 1px solid black; border-collapse: collapse; border-top: 3px solid #168; border-bottom: 3px solid #168;}
+.table th {color: #168; background: #f0f6f9; text-align: center; font-size: 1.5rem; border-bottom: 3px solid #168;}
+.table td { padding: 10px; border-bottom: 2px solid black; font-size:1.5rem;}
+.table tr {text-align: center;} */
+
+/* 스킵 네비게이션 */
+#skip{position: relative;}
+#skip a {position: absolute; left: 0px; top: -40px; border: 1px solid #fff; color: #fff; background: #333;
+line-height: 30px; width: 200px; text-align: center}
+#skip a:active,
+#skip a:focus {top: 0;}
+
+
+/* 레이아웃 */
+#warp{width: 100%; overflow: hidden;}
+
+/*공지사항*/
+#subheader{width: 100%; height: 100px; background:white; border-bottom: 1px solid black; border-top: 1px solid black;  display: line-block; overflow: hidden;}
+
+/*회원가입*/
+#staheader{width: 100%; height: 100px; background:white; border-bottom: 1px solid black; border-top: 1px solid black;  display: line-block; overflow: hidden;}
+
+#banner{width: 100%; height: 900px; background: white; border-bottom: 1px solid black; overflow: hidden;}
+#contents{width: 100%; height: 1300px; background: #EEEEEE; overflow: hidden;}
+#footer{width: 100%; height: 100px; background: white; border-top: 1px solid black; overflow: hidden;}
+/* 풋터 컨테이너 */
+.con_f{width: 2000px; margin: 0 auto; height: inherit; background: rgba(255,255,255,0.5)}
+
+/* 서브 상단 메뉴 */
+.stamenu {position: relative; width: 100%;  margin: 0 auto; height: inherit; background-color: rgba( 255, 255, 255, 0.4 ); }
+.stamenu:after {content:""; display: block; clear: both;}
+.stamenu .stalogo {float:left; padding:0.5rem 0 0 4rem; margin: 0 auto;}
+.stamenu .stamain-menu {float:right; padding:0rem 0 0 0;}
+.stamenu .stamain-menu .sta .stab {float:left; list-style: none; position: relative;}
+.stamenu .stamain-menu .sta .stab a { display: block; font-size:1rem; color:black; padding: 0rem 0.5rem 0rem; height: 0.5rem;
+line-height: 100% ; margin: 1.7rem 2rem 0 0;}
+
+/* 분양회원 회원가입 */
+#Cell{width: 100%; height: 1200px; background:#f7f7f7; overflow:hidden; margin: 0 auto;}
+.CelTS{width: 1200px; height:1100px; background:#f7f7f7; border-left:1px solid black; border-right:1px solid black; margin: 0 auto;}
+.CelTS h1{width: 800px; height:100px; background:#f7f7f7; margin: 0 auto; text-alian: center; padding: 1rem 0 0 15rem;}
+.CelTS .Formr {width: 800px; height: 750px; background: white; margin: 1rem auto; text-alian: center; padding: 2rem 0 2rem 0; border-radius: 1.3rem; border: 1px solid black;}
+.CelTS .Formr tbody {float:left;}
+th,td {padding-left:20px; text-align:left; background-repeat:no-repeat; background-position:left; border-bottom:#eeeeee solid 1px; height: 4rem;}
+.signUp{margin: 0 0 0 20rem; width: 7rem; height:2rem; border-radius: 1rem; background: #c28af4;}
+.return{margin: 0 0 0 3rem; width: 7rem; height:2rem; border-radius: 1rem; background: #c28af4; }
+

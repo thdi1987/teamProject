@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reviewMapper">
+   
+<!-- 카테고리 호출 -->
+<select id="category" resultType="CategoryVO">
+ select
+  level, petcatename, petcatecode, petcatecoderef
+ from pet_category
+     start with petcatecoderef is null connect by prior petcatecode = petcatecoderef
+</select>
+
+<!-- 동물 후기 등록 -->
+<insert id="register">
+ insert into pet_review (petnum, petname,petcatecode,petcontents,petimage,petthumbimage)
+     values (pet_review_seq.nextval, #{petname}, #{petcatecode},#{petcontents},#{petimage},#{petthumbimage})
+</insert>
+
+<!-- 후기 목록 -->
+<select id="reviewslist" resultType="ReviewVO">
+	select
+		petnum, petname, petcatecode, petcontents, petimage, petdate
+	from pet_review
+		order by petnum desc
+</select>
+
+<!-- 후기 조회 -->
+<!-- 
+<select id="reviewsView" resultType="kr.co.domain.ReviewVO">
+	select petnum, petname, petcatecode, petcontents, petimage, petdate
+		from pet_review
+			where petnum = #{petnum}
+</select> 
+-->
+
+<!-- 후기 조회 + 카테고리 조인 -->
+<select id="reviewsView" resultType="ReviewViewVO">
+	select
+		r.petnum, r.petname, r.petcatecode, c.petcatecoderef, c.petcatename,petcontents, petimage, petdate,
+		r.petimage, r.petthumbimage
+			from pet_review r
+				inner join pet_category c
+					on r.petcatecode = c.petcatecode
+			where r.petnum = #{petnum}
+</select>
+
+<!-- 상품 수정 -->
+<update id="reviewsModify">
+ update pet_review
+     set
+         petname = #{petname},
+         petcatecode = #{petcatecode},
+         petcontents = #{petcontents},
+         
+         petimage = #{petimage},
+         petthumbimage = #{petthumbimage}
+         
+     where petnum = ${petnum}
+</update>
+
+<!-- 상품 삭제 -->
+<delete id="reviewsDelete">
+	delete
+		pet_review
+	where petnum = #{petnum}
+</delete>
+
+<!--  모든 소감(댓글) -->
+<select id="allReply" resultType="ReplyListVO">
+ select
+     r.petnum, r.mid, r.repnum, r.repcon, r.repdate,
+     m.mname
+ from pet_reply r
+      inner join MEMBER m
+         on r.mid = m.mid
+</select>
+
+<!-- 소감(댓글) 지우기 -->
+<delete id="deleteReply">
+ delete pet_reply
+     where repnum = #{repnum}
+</delete>
+
+
+</mapper>

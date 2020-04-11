@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="messageMapper">
+ 
+ <!-- 쪽지 작성 -->
+ 	<insert id="insert">
+ 	INSERT INTO MESSAGE (   MSNUM
+ 						  , MSID
+ 						  , MSID2
+ 						  , MSTITLE
+ 						  , MSCONTENS )
+ 				 VALUES(    MESSAGE_SEQ.NEXTVAL
+ 				 		  , #{msid}
+ 				 		  , #{msid2}
+ 				 		  , #{mstitle}
+ 				 		  , #{mscontens} )
+ 	</insert>
+ 	
+<!-- 쪽지 목록 보기 -->
+	<select id="listpage" resultType="MessageVO" parameterType="SysPageSearchCriteria">
+		SELECT  MSNUM,
+			    MSID,
+			    MSID2,
+			    MSTITLE,
+			    MSCONTENS,
+			    MSTIME
+		  FROM (
+		  		SELECT MSNUM,
+		  			   MSID,
+		  			   MSID2,
+		  			   MSTITLE,
+		  			   MSCONTENS,
+		  			   MSTIME,
+		  			   ROW_NUMBER() OVER (ORDER BY MSNUM DESC) AS RNUM
+		  		FROM MESSAGE
+		  		WHERE 1=1
+		  			<include refid="search"></include>
+		  					)MS
+		WHERE MSID = #{id} and RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY MSNUM DESC
+	</select>
+	
+<!-- 쪽지 내용 읽기 -->
+	<select id="read" parameterType="int" resultType="MessageVO">
+		SELECT 	 MSNUM
+			   , MSID
+			   , MSID2
+			   , MSTITLE
+			   , MSCONTENS
+			   , MSTIME
+		  FROM MESSAGE
+		 WHERE MSNUM = #{msnum}
+	</select>
+
+<!-- 쪽지 총 갯수 -->
+<select id="messageCount" resultType="int">
+		SELECT COUNT(MSNUM)
+		  FROM MESSAGE
+		  WHERE 1=1
+		<include refid="search"></include>
+		 AND MSNUM > 0
+</select>
+
+<!-- 쪽지 삭제 -->
+<delete id="delete" parameterType="int">
+	DELETE
+	  FROM MESSAGE
+	 WHERE MSNUM = #{msnum}
+</delete>
+
+<!-- 동적 쿼리 sql문 추가(검색관련) -->
+<sql id="search">
+<if test="searchType != null">
+	<if test="searchType == 'mt'.toString()">AND MSTITLE LIKE '%' || #{keyword} || '%'</if> <!-- 제목 -->
+	<if test="searchType == 'mc'.toString()">AND MSCONTENS LIKE '%' || #{keyword} || '%'</if> <!-- 내용 -->
+	<if test="searchType == 'm'.toString()">AND MSID LIKE '%' || #{keyword} || '%'</if> <!-- 받는 사람 -->
+	<if test="searchType == 'm2'.toString()">AND MSID2 LIKE '%' || #{keyword} || '%'</if> <!-- 보낸 사람 -->
+	<if test="searchType == 'mtmc'.toString()">AND (MSTITLE LIKE '%' || #{keyword} || '%') or (MSCONTENS LIKE '%' || #{keyword} || '%')</if>
+</if>
+</sql>
+ </mapper> 

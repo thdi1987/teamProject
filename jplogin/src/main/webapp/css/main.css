@@ -1,0 +1,112 @@
+@charset "utf-8";
+
+html{ font-size:20px;}
+body{ font-size:1rem;}
+
+/*테이블 */
+
+/* 스킵 네비게이션 */
+#skip{position: relative;}
+#skip a {position: absolute; left: 0px; top: -40px; border: 1px solid #fff; color: #fff; background: #333;
+line-height: 30px; width: 200px; text-align: center}
+#skip a:active,
+#skip a:focus {top: 0;}
+
+
+/* 레이아웃 */
+#warp{width: 100%; overflow: hidden;}
+#header{ position: fixed; width: 100%; height: 100px; background-color: rgba( 255, 255, 255, 0.4 ); z-index: 100; border-bottom: 1px solid black; border-top: 1px solid black; overflow: hidden;}
+#header_sub{width: 100%; height: 100px; background:white; border-bottom: 1px solid black; border-top: 1px solid black;  display: line-block; overflow: hidden;}
+#banner{width: 100%; height: 900px; background: white; border-bottom: 1px solid black; overflow: hidden;}
+#contents{width: 100%; height: 900px; background: #EEEEEE; overflow: hidden;}
+#footer{width: 100%; height: 100px; background: white; border-top: 1px solid black; overflow: hidden;}
+
+/* 풋터 컨테이너 */
+
+.con_f{width: 2000px; margin: 0 auto; height: inherit; background: rgba(255,255,255,0.5)}
+
+/* 헤더 */
+.menu { position: relative; width: 100%;  margin: 0 auto; height: inherit; background-color: rgba( 255, 255, 255, 0.4 );}
+.menu:after {content:""; display: block; clear: both;}
+.menu h1 {float:left; padding:0.5rem 0 0 2rem; line-height:100%;}
+.menu .main-menu {float:right; padding:1.7rem 0 0 0;}
+.menu .main-menu ul li {float:left; list-style: none; position: relative;}
+.menu .main-menu ul li a { display: block; font-size:1rem; color:black; padding: 0rem 2rem 0rem; line-height: 100%;}
+
+
+/* 슬라이드 쇼 */
+.ban { background: white; height: 45rem; width: 100%; overflow: hidden; position:relative;}
+.ban_slides {position: absolute; width: 100%; height: 100%;}
+.ban_slides a{position: absolute; width: 100%; height: 100%; text-align: center;}
+.ban_nav a{width: 71px; height: 71px; position: absolute; left: 50%; top: 50%; transform: translateY(-50%); background:url(../img/sprites.png) no-repeat; text-indent: -9999rem}
+.ban_nav a.disabled{display: none;}
+.ban_nav a.prev{background-position: 0 -20px; margin-left: -880px;}
+.ban_nav a.next{background-position: -81px -20px; margin-left: 809px;}
+
+.indicator {position: absolute; bottom: 30px; left:0; right: 0; display: flex; justify-content: center;}
+.indicator a{ width: 8px; height: 8px; margin: 0 10px; background: url(../img/sprites.png) no-repeat -114px -4px; text-indent: -999rem;}
+.indicator a.active{background-position: -134px -4px}
+
+/* 컨텐츠 */
+.cont { width: 1600px; margin: 0 auto; height: inherit; background: #EEEEEE;  border-top: 1px solid white; border-bottom: 1px solid white } /*레이아웃*/
+.cont .con { overflow: hidden; }
+
+/* 공지사항 */
+.cont .con .cont_col1{position: absolute; margin: 1.5rem 0 1.5rem 2rem; float: left; width: 550px; height: 600px; background: white;}
+
+/*메인 로그인 부분*/
+.cont .con .cont_col2{position: absolute; margin: 1.5rem 0 1.5rem 58rem; float: right; width: 420px; height: 300px; background: white; border: 1px solid black;}
+.cont .con .cont_col2 ul a{ float: left; margin: 2.5rem 0 0 1.75rem;}
+.cont .con .cont_col2 .submenu {margin:  10rem 0 0 0; border-top: 1px solid black; display: flex; justify-content: center;}
+.cont .con .cont_col2 .submenu a{position: relative;  float: left;  margin: 2rem 0.7rem 0; line-height: 100%; padding:0 0.5rem; font-size: 15px;} 
+.cont .con .cont_col2 .submenu a ~ a:after { content: ""; position: absolute; left: -10px; top: -20px; right: 20px; height:60px; width: 1px; background: #111; transform: rotate(0deg);}
+.cont .con .cont_col2 .log {border:1px solid black; margin: 1rem 0 0 4rem; border-radius: 1.3rem; background:#ccc; width: 13rem; height: 8rem;}
+.cont .con .cont_col2 .log p {font-size:1.5rem; margin: 1.2rem 0 0 1.7rem;}
+.cont .con .cont_col2 .logmenu {margin:  1.7rem 0 0 0; border-top: 1px solid black; display: flex; justify-content: center;}
+.cont .con .cont_col2 .logmenu a {float: center;  margin: 1.5rem 0.7rem 0; line-height: 100%; padding:0 0.5rem; font-size: 1rem;}
+
+/* 슬라이드쇼 */
+.cont .con .cont_col3{position: relative; margin: 18rem 0 1.5rem 58.5rem ; float: left; width: 400px; height: 200px; background: #ccc; overflow: hidden; }
+.cont .con .cont_col3 .cont_col33{position: absolute; width: 100%; height: 100%;}
+.cont .con .cont_col3 .cont_col33 a {position: absolute; width: 100%; height: 100%; text-align: center;}
+.cont_nav a{width: 71px; height: 71px; position: absolute; left: 50%; top: 50%; transform: translateY(-50%); background:url(../img/sprites.png) no-repeat; text-indent: -9999rem}
+.cont_nav a.disabled{display: none;}
+.cont_nav a.pre{background-position: 0 -20px; margin-left: -880px;}
+.cont_nav a.nex{background-position: -81px -20px; margin-left: 809px;}
+
+.contindicator {position: absolute; bottom: 30px; left:0; right: 0; display: flex; justify-content: center;}
+.contindicator a{ width: 8px; height: 8px; margin: 0 10px; background: url(../img/sprites.png) no-repeat -114px -4px; text-indent: -999rem;}
+.contindicator a.active{background-position: -134px -4px}
+/*분양 게시판*/
+.cont .con .cont_col4{position: relative; margin: 1rem 0 1.5rem 58.5rem ; float: left; width: 400px; height: 200px; background: #ccc; overflow: hidden;}
+.cont .con .cont_col4 .cont_col44{position: absolute; width: 100%; height: 100%;}
+.cont .con .cont_col4 .cont_col44 a {position: absolute; width: 100%; height: 100%; text-align: center;}
+.ccont_nav a{width: 71px; height: 71px; position: absolute; left: 50%; top: 50%; transform: translateY(-50%); background:url(../img/sprites.png) no-repeat; text-indent: -9999rem}
+.ccont_nav a.disabled{display: none;}
+.ccont_nav a.pre{background-position: 0 -20px; margin-left: -880px;}
+.ccont_nav a.nex{background-position: -81px -20px; margin-left: 809px;}
+
+.contindicator {position: absolute; bottom: 30px; left:0; right: 0; display: flex; justify-content: center;}
+.contindicator a{ width: 8px; height: 8px; margin: 0 10px; background: url(../img/sprites.png) no-repeat -114px -4px; text-indent: -999rem;}
+.contindicator a.active{background-position: -134px -4px}
+/*후기 게시판*/
+.cont .con .cont_col5{position: absolute; margin: 32rem 0 1.5rem 30rem ; float: left; width: 550px; height: 600px; background: #ccc}
+
+
+
+/* 로그인 페이지 컨텐츠 */
+#contents_log{width:100%; height: 50rem; }
+.cont_log { width: 600px; position: absolute; left: 50%; top: 50%;  transform: translate(-50%, -50%); text-align: center;}
+.cont_log h2 { padding:0 0 20px; border-bottom: 2px solid #111; text-align: center; line-height:1; font-size: 32px; color: #111;}
+.cont_log ul { padding: 40px 20px; }
+.cont_log ul li { padding:12px 0 12px; text-align: left; list-style: none;}
+.cont_log ul li input { width: 100%; height: 50px; box-sizing: border-box; text-indent: 20px;}
+.cont_log ul li input::-webkit-input-placeholder { font-size:16px; color:#9fa19f;}
+.cont_log button { width: 100%; height: 56px; background:#8000ff; font-size: 18px; color:#fff;}
+.cont_log div { padding: 0 0 50px; border-top: 2px solid #111;}
+.cont_log div ul { display: flex; justify-content: center;}
+.cont_log div ul li { position: relative; padding: 0 1.2rem;}
+.cont_log div ul li ~ li:after { content: ""; position: absolute; left: 0; top: 9px; height:20px; width: 1px; background: #111; transform: rotate(25deg);}
+.cont_log div ul li a { font-size: 14px; color:#666; border-bottom: 1px solid #666;}
+
+

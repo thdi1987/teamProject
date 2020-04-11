@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation=
+		"http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+		
+	<!-- <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />  -->
+		
+   <tx:annotation-driven transaction-manager="transactionManager"/>
+   
+   <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="user" value="jp" />
+		<property name="password" value="jp" />
+		<property name="maxPoolSize" value="100" />
+		<property name="maxIdleTime" value="600" />
+		<property name="idleConnectionTestPeriod" value="300" />
+	</bean>
+	
+	<bean id="transactionManager"
+	     class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	     <property name="dataSource" ref="dataSource"/>
+	 </bean>
+	 
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	       <property name="dataSource" ref="dataSource"/>
+	       <property name="configLocation" value="classpath:config/mybatis-config.xml"/>
+	       <property name="mapperLocations">
+	          <list>
+	              <value>classpath:config/sqlmap-member.xml</value>
+	              <value>classpath:config/sqlmap-notice.xml</value>	              
+	              <value>classpath:config/sqlmap-adopt.xml</value>	              
+	              <value>classpath:config/sqlmap-quest.xml</value>
+	              <value>classpath:config/sqlmap-service.xml</value>
+	              <value>classpath:config/sqlmap-free.xml</value>
+	              <value>classpath:config/sqlmap-freeReply.xml</value>
+	              <value>classpath:config/sqlmap-buyer.xml</value>
+	              <value>classpath:config/sqlmap-meseage.xml</value>
+	              <value>classpath:config/sqlmap-parcelOut.xml</value>	
+	              <value>classpath:config/sqlmap-boardMapper.xml</value>	
+	              <value>classpath:config/sqlmap-reviewMapper.xml</value>
+	              <value>classpath:config/sqlmap-report.xml</value>	                        
+	          </list>
+	       </property>
+	 </bean>		
+	
+	 <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
+	      destroy-method="clearCache">
+	      <constructor-arg ref="sqlSessionFactory"/>     
+	 </bean>
+	 
+	 <bean id="memberDao" class="member.dao.MemberDaoMybatis">
+	    <constructor-arg ref="sqlSessionTemplate"/>
+	 </bean>
+	 
+	 <bean id="NoticeDao" class="board.notice.dao.NoticeDaoImpl">
+	    <constructor-arg ref="sqlSessionTemplate"/>
+	 </bean> 
+	 
+	 <bean id="AdoptDao" class="board.adopt.dao.AdoptDaoImpl">
+	    <constructor-arg ref="sqlSessionTemplate"/>
+	 </bean>	 
+	 
+	 <bean id="QuestDao" class="board.quest.dao.QuestDaoImpl">
+	    <constructor-arg ref="sqlSessionTemplate"/>
+	 </bean>
+	 
+	 <bean id="ServiceDao" class="board.service.dao.ServiceDaoImpl">
+	    <constructor-arg ref="sqlSessionTemplate"/>
+	 </bean>
+	 
+	 <bean id="FreeDao" class="board.free.dao.FreeDaoImpl">
+	    <constructor-arg ref="sqlSessionTemplate"/>
+	 </bean>
+	 
+	 <bean id="FreeReplyDao" class="board.free.dao.FreeReplyDaoImpl">
+	    <constructor-arg ref="sqlSessionTemplate"/>
+	 </bean>
+	 
+	  <bean id="BuyerDao" class="board.buyer.dao.BuyerDaoImpl">
+	    <constructor-arg ref="sqlSessionTemplate"/>
+	 </bean>
+	 
+	 <bean id="MessageDao" class="message.dao.MessageDaoImpl">
+	    <constructor-arg ref="sqlSessionTemplate"/>
+	 </bean>  
+	 
+	  <bean id="ReviewBoardDAO" class="board.review.dao.ReviewBoardDAOImpl">
+	    <constructor-arg ref="sqlSessionTemplate"/>  
+	 </bean> 
+	 
+	  <bean id="ReplyDAO" class="board.review.dao.ReplyDAOImpl">
+	    <constructor-arg ref="sqlSessionTemplate"/>
+	 </bean> 
+	 
+	  <bean id="ReviewDAO" class="board.review.dao.ReviewDAOImpl">
+	    <constructor-arg ref="sqlSessionTemplate"/>
+	 </bean> 
+	 
+	 <bean class="java.lang.String" id="uploadPath">
+		<constructor-arg value="C:\images" />
+	 </bean>
+	 
+	 <bean id="reportDao" class="report.dao.reportImpl">
+	 	  <constructor-arg ref="sqlSessionTemplate"/> 
+	 </bean>  
+
+	 
+	 <bean id="memberService" class="member.service.MemberServiceImpl">
+	    <property name="memberDao" ref="memberDao"/>	    
+	 </bean>	 	 
+	 
+	 <bean id="memberServiceImpl" class="member.service.MemberServiceImpl">	
+	 	<property name="memberDao" ref="memberDao"/>
+	    <property name="pwdEncoder" ref="bcryptPasswordEncoder"></property>	
+	    <property name="sm" ref="SendMail"></property> 
+	    <property name="seed" ref="KISA_SEED"></property> 
+	    <property name="mailService" ref="MailService"></property> 	      
+	 </bean>
+	  
+	 <bean id = "KISA_SEED" class = "member.seed.KISA_SEED"></bean>
+	 
+	 <bean id="SendMail" class="member.mail.SendMail">	    
+	 </bean> 
+	 <bean id = "authService" class = "member.service.AuthService">
+	 	<property name="memberDao" ref = "memberDao"></property>	 		
+	 </bean>
+	 
+	 <bean id="NoticeService" class="board.notice.service.NoticeServiceImpl">
+	    <property name="NoticeDao" ref="NoticeDao"/>	    
+	 </bean>
+	 
+	 <bean id="NoticeServiceImpl" class="board.notice.service.NoticeServiceImpl">	
+	 	<property name="NoticeDao" ref="NoticeDao"/>	          
+	 </bean>	 
+	 
+	 <bean id="AdoptService" class="board.adopt.service.AdoptServiceImpl">
+	    <property name="AdoptDao" ref="AdoptDao"/>	    
+	 </bean>
+	 
+	 <bean id="AdoptServiceImpl" class="board.adopt.service.AdoptServiceImpl">	
+	 	<property name="memberDao" ref="memberDao"/>
+	 	<property name="sm" ref="SendMail"></property> 
+	    <property name="seed" ref="KISA_SEED"></property> 	   
+	 	<property name="AdoptDao" ref="AdoptDao"/>	          
+	 </bean> 
+	 
+	 <bean id="QuestService" class="board.quest.service.QuestServiceImpl">
+	    <property name="QuestDao" ref="QuestDao"/>	    
+	 </bean>
+	 
+	 <bean id="QuestServiceImpl" class="board.quest.service.QuestServiceImpl">	
+	 	<property name="QuestDao" ref="QuestDao"/>	          
+	 </bean>
+	 
+	 <bean id="ServiceService" class="board.service.service.ServiceServiceImpl">
+	    <property name="ServiceDao" ref="ServiceDao"/>	    
+	 </bean>
+	 
+	 <bean id="ServiceServiceImpl" class="board.service.service.ServiceServiceImpl">	
+	 	<property name="ServiceDao" ref="ServiceDao"/>	          
+	 </bean>
+	 
+	  <bean id="FreeService" class="board.free.service.FreeServiceImpl">
+	    <property name="FreeDao" ref="FreeDao"/>	    
+	 </bean>
+	 
+	 <bean id="FreeServiceImpl" class="board.free.service.FreeServiceImpl">	
+	 	<property name="FreeDao" ref="FreeDao"/>	          
+	 </bean>
+	 
+	 <bean id="FreeReplyService" class="board.free.service.FreeReplyServiceImpl">
+	    <property name="FreeReplyDao" ref="FreeReplyDao"/>	    
+	 </bean>
+	 
+	 <bean id="FreeReplyServiceImpl" class="board.free.service.FreeReplyServiceImpl">	
+	 	<property name="FreeReplyDao" ref="FreeReplyDao"/>	          
+	 </bean>
+	 
+	 <bean id="BuyerService" class="board.buyer.service.BuyerServiceImpl">
+	    <property name="BuyerDao" ref="BuyerDao"/>	    
+	 </bean>
+	 
+	 <bean id="BuyerServiceImpl" class="board.buyer.service.BuyerServiceImpl">	
+	 	<property name="BuyerDao" ref="BuyerDao"/>	   
+	 	<property name="seed" ref="KISA_SEED"></property>       
+	 </bean>
+	 
+	 <bean id="MessageService" class="message.service.MessageServiceImpl">
+	    <property name="MessageDao" ref="MessageDao"/>	    
+	 </bean>
+	 
+	 <bean id="MessageServiceImpl" class="message.service.MessageServiceImpl">	
+	 	<property name="MessageDao" ref="MessageDao"/>	          
+	 </bean>	
+	 
+	 <bean id="boardDao" class="board.parcelOut.dao.BoardDaoMybatis">
+        	<constructor-arg ref="sqlSessionTemplate"/> 
+     </bean>
+	
+	 <bean id="boardServiceImpl" class="board.parcelOut.service.BoardServiceImple">
+        	<property name="boardDao" ref="boardDao"/>
+     </bean>       
+        	
+   	 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    		<property name="maxUploadSize" value="10000000" />
+	 </bean>
+	  
+	 <bean id="ReviewInterceptor" class="board.review.interceptor.ReviewInterceptor" />
+
+	 <bean id="ReviewBoardService" class="board.review.service.ReviewBoardServiceImpl">
+	    <property name="ReviewBoardDAO" ref="ReviewBoardDAO"/>	    
+	 </bean>
+	 
+	 <bean id="ReviewBoardServiceImpl" class="board.review.service.ReviewBoardServiceImpl">	
+	 	<property name="ReviewBoardDAO" ref="ReviewBoardDAO"/>	          
+	 </bean>
+	 
+	 <bean id="ReplyService" class="board.review.service.ReplyServiceImpl">
+	    <property name="ReplyDAO" ref="ReplyDAO"/>	    
+	 </bean>
+	 
+	 <bean id="ReplyServiceImpl" class="board.review.service.ReplyServiceImpl">	
+	 	<property name="ReplyDAO" ref="ReplyDAO"/>	          
+	 </bean>
+	 
+	 <bean id="ReviewService" class="board.review.service.ReviewServiceImpl">
+	    <property name="ReviewDAO" ref="ReviewDAO"/>	    
+	 </bean>
+	 
+	 <bean id="ReviewServiceImpl" class="board.review.service.ReviewServiceImpl">	
+	 	<property name="ReviewDAO" ref="ReviewDAO"/>	          
+	 </bean>
+
+	 <bean id="ReportServiceImpl" class="report.service.ReportServiceImpl">
+	 	<property name="reportDao" ref="reportDao"/>	
+	 	<property name="sm" ref="SendMail"></property>       
+	 </bean>	
+	 
+	 
+		      
+     
+</beans>

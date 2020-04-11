@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+html{ font-size:20px;}
+body{ font-size:1rem;}
+
+/*테이블 */
+/* .table {margin: 1rem 0 0 0 ; width: 95%; height:600px; border: 1px solid black; border-collapse: collapse; border-top: 3px solid #168; border-bottom: 3px solid #168;}
+.table th {color: #168; background: #f0f6f9; text-align: center; font-size: 1.5rem; border-bottom: 3px solid #168;}
+.table td { padding: 10px; border-bottom: 2px solid black; font-size:1.5rem;}
+.table tr {text-align: center;} */
+
+/* 스킵 네비게이션 */
+#skip{position: relative;}
+#skip a {position: absolute; left: 0px; top: -40px; border: 1px solid #fff; color: #fff; background: #333;
+line-height: 30px; width: 200px; text-align: center}
+#skip a:active,
+#skip a:focus {top: 0;}
+
+
+/* 레이아웃 */
+#warp{width: 100%; overflow: hidden;}
+
+/*공지사항*/
+#subheader{width: 100%; height: 100px; background:white; border-bottom: 1px solid black; border-top: 1px solid black;  display: line-block; overflow: hidden;}
+
+/*회원가입*/
+#staheader{width: 100%; height: 100px; background:white; border-bottom: 1px solid black; border-top: 1px solid black;  display: line-block; overflow: hidden;}
+
+#banner{width: 100%; height: 900px; background: white; border-bottom: 1px solid black; overflow: hidden;}
+#contents{width: 100%; height: 1000px; background: #f7f7f7;}
+
+/* 회원가입 회원분류 선택창*/
+#memberTrim{width: 100%; height: 1000px; margin:0 auto;}
+.MTR{margin: 0 auto; width:1000px; height: 1000px; padding:10rem 0 0 0;}
+.MTR .MTRA {margin: 0 auto; }
+#MTRAR {margin:0 auto; width: 1000px; height: 400px; background:#f7f7f7; padding: 3rem 0 0 2.5rem; border:1px solid black; border-radius: 1.3rem;  background-color: rgba( 255, 255, 255, 0.5 );}
+.MTR .btn1 {font-size: 5rem ; padding: 1.5rem 1rem 2rem 0; border-radius: 1.3rem; margin: 0 auto; margin-right:60px; margin-top:1.5rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);}
+.MTR .btn2 {font-size: 5rem ; padding: 1.5rem 0 2rem 0; border-radius: 1.3rem; margin: 0 auto; margin-top:1.5rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);}

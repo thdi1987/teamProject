@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="report">
+
+    <!-- 공지사항 맵퍼  -->  
+      <!-- 게시판 글 작성 -->
+   <insert id="Insert" parameterType="reportVO">
+	   INSERT INTO REPORT
+	         VALUES(REPORT_SEQ.NEXTVAL,#{RREPORTEDID},#{RDECLAR},#{RPID},#{RTITLE},
+	         #{RREPORT},#{RID},#{REMAIL},sysdate)
+   </insert>
+   
+   <select id="reportList" resultType="reportVO">
+   	  select B.rnum,B.RNO,B.RREPORTEDID,B.RDECLAR,B.RPID,B.RTITLE,B.RREPORT,B.RID,B.REMAIL,B.RDATE
+    from ( select rownum as rnum,A.RNO,A.RREPORTEDID,A.RDECLAR,A.RPID,A.RTITLE,A.RREPORT,A.RID,A.REMAIL,A.RDATE
+    from(
+        select RNO,RREPORTEDID,RDECLAR,RPID,RTITLE,RREPORT,RID,REMAIL,RDATE
+        from "REPORT" 
+        order by RNO desc
+    ) A 
+    ) B WHERE rnum between #{rowStart} AND #{rowEnd}
+   </select>
+   
+   <select id="reportHistoryList" resultType="reportHistoryVO">
+     select B.rnum,B.RHNO,B.RHID,B.RHEMAIL,B.RHCOUNT,B.RHDATE,B.RHRELEASEDATE
+    from ( select rownum as rnum,A.RHNO,A.RHID,A.RHEMAIL,A.RHCOUNT,A.RHDATE,A.RHRELEASEDATE
+    from(
+        select RHNO,RHID,RHEMAIL,RHCOUNT,RHDATE,RHRELEASEDATE
+        from "REPORT_HISTORY" 
+        order by rownum desc
+    ) A 
+    ) B WHERE rnum between #{rowStart} AND #{rowEnd}
+   
+   
+   </select>
+   
+   
+   
+  	<select id="count" resultType="int">
+	select count(*) from "REPORT"
+	</select>
+	
+	<select id="count2" resultType="int">
+	select count(*) from "REPORT_HISTORY"
+	</select>
+	
+	
+   
+   <select id="selectEmail" resultType="String">
+   	SELECT MEMAIL FROM MEMBER
+   	WHERE MID=#{RREPORTEDID}
+   </select>
+   
+   <insert id="insertreportHistory" parameterType="hashmap">
+   Insert into REPORT_HISTORY VALUES(#{RNO},#{RHID},#{Email},#{punish},sysdate,sysdate+#{punish})
+   </insert>
+   
+   <update id="updateSch">
+   UPDATE REPORT_HISTORY SET RHCOUNT=RHCOUNT-1 WHERE RHCOUNT != 99 and RHCOUNT > 0
+   </update>
+   
+	<delete id="deleteReport">
+   DELETE FROM REPORT WHERE RNO=#{RNO}
+   </delete>
+   
+	
+      
+</mapper>

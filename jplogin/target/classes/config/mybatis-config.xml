@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+   <settings>
+      <setting name="cacheEnabled" value="false"/>
+      <setting name="useGeneratedKeys" value="false"/>
+      <setting name="mapUnderscoreToCamelCase" value="ture"/>
+   </settings>
+   
+   <typeAliases>
+      <typeAlias alias="MemberVO" type="member.domain.MemberVO"/>
+      <typeAlias alias="NoticeVO" type="board.notice.domain.NoticeVO"/>
+      <typeAlias alias="SysPageSearchCriteria" type="syspage.paging.SearchCriteria"/>       
+      <typeAlias alias="AdoptVO" type="board.adopt.domain.AdoptVO"/>     
+      <typeAlias alias="QuestVO" type="board.quest.domain.QuestVO"/>   
+      <typeAlias alias="ServiceVO" type="board.service.domain.ServiceVO"/>
+      <typeAlias alias="FreeBoardVO" type="board.free.domain.FreeBoardVO"/>   
+      <typeAlias alias="FreeReplyVO" type="board.free.domain.FreeReplyVO"/>  
+      <typeAlias alias="BuyerVO" type="board.buyer.domain.BuyerVO"/>  
+      <typeAlias alias="MessageVO" type="message.domain.MessageVO"/> 
+      <typeAlias alias="fileVo" type="board.parcelOut.domain.fileVo"/> 
+      <typeAlias alias="Insert" type="board.parcelOut.domain.Insert"/> 
+      <typeAlias alias="ReplyVO" type="board.parcelOut.domain.ReplyVO"/> 
+      <typeAlias alias="Seach" type="board.parcelOut.domain.Seach"/> 
+      <typeAlias alias="TotalBoardVO" type="board.parcelOut.domain.TotalBoardVO"/> 
+      <typeAlias alias="CategoryVO" type="board.review.domain.CategoryVO"/> 
+      <typeAlias alias="ReplyListVO" type="board.review.domain.ReplyListVO"/> 
+      <typeAlias alias="ReviewReplyVO" type="board.review.domain.ReplyVO"/> 
+      <typeAlias alias="ReviewViewVO" type="board.review.domain.ReviewViewVO"/> 
+      <typeAlias alias="ReviewVO" type="board.review.domain.ReviewVO"/> 
+      <typeAlias alias="reportVO" type="report.domain.reportVO"/> 
+      <typeAlias alias="reportHistoryVO" type="report.domain.reportHistoryVO"></typeAlias>               
+   </typeAliases>
+</configuration>

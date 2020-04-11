@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boardDao">
+
+	<select id="list2" parameterType="SysPageSearchCriteria" resultType="TotalBoardVO"> 
+<![CDATA[
+select B.rnum,B.MPNO,B.PFILENAME,B.MPTITLE,B.MPDIVISION,B.MPKIND,B.MPSIZE,B.MPGENDER,B.MPLOCATION,B.MPNEUTRAL,B.MPDEPOSIT
+    from ( select rownum as rnum,A.MPNO,A.PFILENAME,A.MPTITLE,A.MPDIVISION,A.MPKIND,A.MPSIZE,A.MPGENDER,A.MPLOCATION,A.MPNEUTRAL,A.MPDEPOSIT
+    from(
+        select MPNO,PFILENAME,MPTITLE,MPDIVISION,MPKIND,MPSIZE,MPGENDER,MPLOCATION,MPNEUTRAL,MPDEPOSIT
+        from "MEMBER_PET" join PICTURE ON(MPNO=PBPID)
+        order by MPNO desc
+    ) A 
+    ) B WHERE rnum between #{rowStart} AND ${rowEnd} AND SUBSTR(PFILENAME,1,1) = '1'
+  ]]>
+    </select>
+
+    <select id="listMyPage" parameterType="SysPageSearchCriteria" resultType="TotalBoardVO"> 
+<![CDATA[
+select B.rnum,B.MPNO,B.MPID,B.PFILENAME,B.MPTITLE,B.MPDIVISION,B.MPKIND,B.MPSIZE,B.MPGENDER,B.MPLOCATION,B.MPNEUTRAL,B.MPDEPOSIT
+    from ( select rownum as rnum,A.MPNO,A.MPID,A.PFILENAME,A.MPTITLE,A.MPDIVISION,A.MPKIND,A.MPSIZE,A.MPGENDER,A.MPLOCATION,A.MPNEUTRAL,A.MPDEPOSIT
+    from(
+        select MPNO,MPID,PFILENAME,MPTITLE,MPDIVISION,MPKIND,MPSIZE,MPGENDER,MPLOCATION,MPNEUTRAL,MPDEPOSIT
+        from "MEMBER_PET" join PICTURE ON(MPNO=PBPID)
+        order by MPNO desc
+    ) A
+    ) B WHERE (B.MPID = #{id}) and (rnum between #{rowStart} AND ${rowEnd}) AND SUBSTR(PFILENAME,1,1) = '1'
+  ]]>
+    </select>
+	
+	
+	<select id="boardPicture" resultType="TotalBoardVO">
+		select PBPID, SUBSTR(PFILENAME,2),PORINAME from picture
+		WHERE SUBSTR(PFILENAME,1,1) = '1'
+	</select>	
+	
+	<select id="regCheck" parameterType="String" resultType="int">
+		select count(*) from REGISTRATION_DB where RREGISTRATION = #{REGISTRATION}
+	</select>
+	
+	
+	<insert id="insert" parameterType="Insert">
+		Insert into MEMBER_PET values(PARCELOUT_SEQ.NEXTVAL,#{id},#{title},#{zoo},#{zoo2},#{size},#{gender},#{location},#{netural},#{charge},#{registration},#{explain},sysdate)
+	</insert>
+	
+	<insert parameterType="hashmap" id="insert3"> Insert into PICTURE(PBPID,PFILENAME,PORINAME,PFILESIZE) values((select max(MPNO) from MEMBER_PET),#{saveFileName},#{originalfileName},#{fileSize})
+	 </insert>
+	
+			
+	<select id="count" resultType="int">
+	select count(*) from MEMBER_PET
+	</select>
+	
+	<select id="info" parameterType="int" resultType="TotalBoardVO">
+	select MPNO,MPID,MPTITLE,MPDIVISION,MPKIND,MPSIZE,MPGENDER,MPLOCATION,MPNEUTRAL,MPDEPOSIT,MPCONTENT,MPTIME
+	from MEMBER_PET
+	where MPNO = #{MPNO}
+	</select>
+	
+	<select id="multi" parameterType="int" resultType="TotalBoardVO">
+	select PFILENAME FROM PICTURE
+		  WHERE PBPID=#{MPNO}
+	</select>
+		
+	<insert id="insertComment" parameterType="ReplyVO">
+	INSERT into PARCELOUT_COMMENT values(#{MPNO},PARCELOUT_REPLY_SEQ.NEXTVAL,#{PCCONTENTS},#{PCWRITER},sysdate)
+	</insert>
+	
+	
+	<select id="select1" parameterType="int" resultType="TotalBoardVO">
+	select MPID,MPDIVISION,MPKIND,MPLOCATION,MPGENDER
+		FROM MEMBER_PET
+		WHERE MPNO=#{MPNO}
+	</select>
+	
+	<insert id="insertADOPTION" parameterType="TotalBoardVO">
+	INSERT INTO ADOPTION_APPLICATION VALUES(
+	ADOPT_SEQ.NEXTVAL,
+	#{MPNO},
+	#{adoptId},
+	#{MPID},
+	#{MPTITLE},
+	#{MPCONTENT},
+	#{MPDIVISION},
+	#{MPKIND},
+	#{MPLOCATION},
+	#{MPGENDER},
+	sysdate)
+	</insert>
+	
+	<insert parameterType="hashmap" id="insertFile"> 
+	Insert into PICTURE(PBPID,PFILENAME,PORINAME,PFILESIZE) values(#{PBPID},#{saveFileName},#{originalfileName},#{fileSize})
+	 </insert>
+
+	<select id="selectCommentList" resultType="ReplyVO">
+		SELECT
+			  PCNO
+			, PCNUM
+			, PCCONTENTS
+			, PCWRITER
+			, PCTIME
+		FROM
+			PARCELOUT_COMMENT
+		WHERE
+			PCNO = #{MPNO}
+		ORDER BY PCTIME desc
+	</select>
+
+	<select id="select" resultType="hashmap" parameterType="Seach">
+	select MPNO,PFILENAME,MPTITLE,MPDIVISION,MPKIND,MPSIZE,MPGENDER,MPLOCATION,MPNEUTRAL,MPDEPOSIT from "MEMBER_PET" join PICTURE ON(MPNO=PBPID)
+		  <where> 
+		   <if test="zoo.toString() !=''">
+		 MPDIVISION like'%'||#{zoo}||'%'   
+		   </if>
+		    
+		    <if test="zoo2.toString() != ''">
+			AND MPKIND like'%'||#{zoo2}||'%' 
+			</if>
+			
+			<if test="size.toString() != ''">
+		 	AND MPSIZE like'%'||#{size}||'%' 
+		 </if>
+
+	  	<if test="netural.toString() != ''">
+		 	AND MPNEUTRAL like'%'||#{netural}||'%' 
+		 </if>	
+		  
+		   <if test="location.toString() != ''">
+		 	AND MPLOCATION like'%'||#{location}||'%' 
+		 </if>
+		 
+		 <if test="gender.toString() !=''">
+		 AND MPGENDER like'%'||#{gender}||'%' 
+		 </if>	
+		 
+		 <if test='charge.toString() eq "무료".toString()'>
+			 AND MPDEPOSIT ='무료'
+			</if>
+			
+			<if test='charge.toString() eq "10만".toString()'>
+			 AND MPDEPOSIT between '1' and '10'
+			</if>
+
+			<if test='charge.toString() eq "20만".toString()'>
+			AND MPDEPOSIT between '11' and '20'
+			</if>
+			
+			<if test='charge.toString() eq "21만".toString()'>
+			AND MPDEPOSIT > '21' and MPDEPOSIT !='무료'
+			</if>
+				AND SUBSTR(PFILENAME,1,1) = '1'
+		   </where>				
+	</select>
+	
+	
+	<delete id = "delete" parameterType="int">
+		DELETE FROM MEMBER_PET where MPNO = #{MPNO}
+	</delete>
+	
+	<update id="updateBoard" parameterType="TotalBoardVO">
+	UPDATE MEMBER_PET SET MPTITLE=#{MPTITLE},MPDIVISION=#{MPDIVISION},MPKIND=#{MPKIND},MPSIZE=#{MPSIZE},MPGENDER=#{MPGENDER},MPLOCATION=#{MPLOCATION},
+	MPNEUTRAL=#{MPNEUTRAL},MPDEPOSIT=#{MPDEPOSIT},MPREGISTRATION=#{MPREGISTRATION},MPCONTENT=#{MPCONTENT}
+	WHERE MPNO=#{MPNO}
+	</update>
+	
+ 	<delete id="deleteFile">
+	DELETE FROM PICTURE WHERE PBPID=#{mpno}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

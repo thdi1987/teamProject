@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+.nav{width:100%; heigth:30px;  background: #EEEEEE; margin: 0 auto}
+
+.nav .navl{list-style: none; float:right;}
+
+.nav .nava{float:left; font-color:black;}

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="QuestDao">
+
+    <!-- 공지사항 맵퍼  -->  
+      <!-- 게시판 글 작성 -->
+   <insert id="Insert">
+	   INSERT INTO QUESTION(QNUM, QEMAIL, QTITLE, QCONTENT)
+	                 VALUES(QBOARD_SEQ.NEXTVAL, #{QEMAIL}, #{QTITLE}, #{QCONTENT})
+   
+   </insert>
+   
+   <!-- 게시물 목록 조회 -->
+   <select id="ListPage" resultType="QuestVO" parameterType="SysPageSearchCriteria">
+		SELECT  QNUM, QEMAIL, QTITLE, QCONTENT
+			FROM (SELECT QNUM, QEMAIL, QTITLE, QCONTENT, 
+		          ROW_NUMBER() OVER(ORDER BY QNUM DESC) AS RNUM
+		         FROM QUESTION WHERE 1=1 
+		         	<include refid="search"></include>
+		                       ) JP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY QNUM DESC
+	</select>
+	
+	<!-- 게시물 총 갯수 -->
+	<select id="ListCount" parameterType="SysPageSearchCriteria" resultType="int">
+		SELECT COUNT(QNUM)
+		   FROM QUESTION
+		   WHERE 1=1
+		<include refid="search"></include>	
+		   AND QNUM > 0
+	</select>
+	
+	<!-- listPage, listCount search관련 내용 -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND QTITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND QCONTENT LIKE '%' || #{keyword} || '%'</if>
+			<!-- <if test="searchType == 'w'.toString()">AND NBWRITER LIKE '%' || #{keyword} || '%'</if> -->
+			<if test="searchType == 'tc'.toString()">AND (QTITLE LIKE '%' || #{keyword} || '%') or (QCONTENT LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql>
+	<!-- 게시물 조회 -->
+	<select id="Read" parameterType="int" resultType="QuestVO">
+		SELECT	QNUM, QEMAIL, QTITLE, QCONTENT
+		 FROM QUESTION
+		 WHERE QNUM = #{QNUM}
+	</select>
+	
+	<!-- 게시물 수정 -->
+	<update id="Update" parameterType="QuestVO">
+		UPDATE QUESTION
+		   SET QTITLE = #{QTITLE},
+		   	   QCONTENT = #{QCONTENT}
+		 WHERE QNUM = #{QNUM} 
+	</update>
+	
+	<!-- 게시물 삭제 -->
+	<delete id="Delete" parameterType="int">
+		DELETE 
+		  FROM QUESTION
+		 WHERE QNUM = #{QNUM}
+	</delete>
+	
+      
+</mapper>

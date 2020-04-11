@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ServiceDao">
+
+    <!-- 공지사항 맵퍼  -->  
+      <!-- 게시판 글 작성 -->
+   <insert id="Insert">
+	   INSERT INTO SERVICE_CENTER(SCNUM, SCTITLE, SCWRITER, SCCONTENTS)
+	                 VALUES(SCBOARD_SEQ.NEXTVAL, #{SCTITLE}, '관리자', #{SCCONTENTS})
+   
+   </insert>
+   
+   <!-- 게시물 목록 조회 -->
+   <select id="ListPage" resultType="ServiceVO" parameterType="SysPageSearchCriteria">
+		SELECT  SCNUM, SCTITLE, SCWRITER, SCCONTENTS, SCWRTIME 
+			FROM (SELECT SCNUM, SCTITLE, SCWRITER, SCCONTENTS, SCWRTIME, 
+		          ROW_NUMBER() OVER(ORDER BY SCNUM DESC) AS RNUM
+		         FROM SERVICE_CENTER WHERE 1=1 
+		         	<include refid="search"></include>
+		                       ) JP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY SCNUM DESC
+	</select>
+	
+	<!-- 게시물 총 갯수 -->
+	<select id="ListCount" parameterType="SysPageSearchCriteria" resultType="int">
+		SELECT COUNT(SCNUM)
+		   FROM SERVICE_CENTER
+		   WHERE 1=1
+		<include refid="search"></include>	
+		   AND SCNUM > 0
+	</select>
+	
+	<!-- listPage, listCount search관련 내용 -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND SCTITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND SCCONTENTS LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'w'.toString()">AND SCWRITER LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'tc'.toString()">AND (SCTITLE LIKE '%' || #{keyword} || '%') or (SCCONTENTS LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql>
+	<!-- 게시물 조회 -->
+	<select id="Read" parameterType="int" resultType="ServiceVO">
+		SELECT	SCNUM
+			  , SCTITLE
+			  , SCWRITER
+			  , SCCONTENTS
+			  , SCWRTIME
+		 FROM SERVICE_CENTER
+		 WHERE SCNUM = #{SCNUM}
+	</select>
+	
+	<!-- 게시물 수정 -->
+	<update id="Update" parameterType="ServiceVO">
+		UPDATE SERVICE_CENTER
+		   SET SCTITLE = #{SCTITLE},
+		   	   SCCONTENTS = #{SCCONTENTS}
+		 WHERE SCNUM = #{SCNUM} 
+	</update>
+	
+	<!-- 게시물 삭제 -->
+	<delete id="Delete" parameterType="int">
+		DELETE 
+		  FROM SERVICE_CENTER
+		 WHERE SCNUM = #{SCNUM}
+	</delete>
+	
+      
+</mapper>
